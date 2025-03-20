@@ -1,5 +1,53 @@
 package com.example.safeapp
 
+import android.app.AppOpsManager
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
 import io.flutter.embedding.android.FlutterActivity
+import com.example.safeapp.services.MyDeviceAdminReceiver
 
-class MainActivity: FlutterActivity()
+class MainActivity : FlutterActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Check permissions when app starts
+        checkPermissions()
+    }
+
+    private fun checkPermissions() {
+        if (!isAccessibilityEnabled()) {
+            Log.d("Permissions", "Accessibility Service Not Enabled")
+        }
+        if (!isUsageStatsEnabled()) {
+            Log.d("Permissions", "Usage Stats Not Enabled")
+        }
+        if (!isDeviceAdminEnabled()) {
+            Log.d("Permissions", "Device Admin Not Enabled")
+        }
+    }
+
+    private fun isAccessibilityEnabled(): Boolean {
+        val serviceId = "${packageName}/.services.MyAccessibilityService"
+        return Settings.Secure.getString(contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+            ?.contains(serviceId) == true
+    }
+
+    private fun isUsageStatsEnabled(): Boolean {
+        val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), packageName)
+        return mode == AppOpsManager.MODE_ALLOWED
+    }
+
+    private fun isDeviceAdminEnabled(): Boolean {
+        val devicePolicyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val componentName = ComponentName(this, MyDeviceAdminReceiver::class.java)
+        return devicePolicyManager.isAdminActive(componentName)
+    }
+}

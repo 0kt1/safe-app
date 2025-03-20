@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SafeApp</string>
+    <string name="accessibility_service_description">Allows SecureBank Hub to monitor foreground apps and protect transactions.</string>
+</resources>

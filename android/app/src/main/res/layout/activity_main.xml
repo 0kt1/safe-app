@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/permissionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable Permissions"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btnAccessibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable Accessibility Service"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/btnUsageStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable Usage Stats"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/btnDeviceAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable Device Admin"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>
