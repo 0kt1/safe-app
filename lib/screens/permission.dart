@@ -313,7 +313,8 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/secure_container');
+                // Navigator.pushReplacementNamed(context, '/secure_container');
+                Navigator.pushReplacementNamed(context, '/home_screen');
               },
               child: const Text("Continue"),
             ),

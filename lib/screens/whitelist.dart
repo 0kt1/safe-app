@@ -47,7 +47,7 @@ class _WhitelistScreenState extends State<WhitelistScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/secure_container');
+                Navigator.pushNamed(context, '/home_screen');
               },
               child: Text("Proceed"),
             ),

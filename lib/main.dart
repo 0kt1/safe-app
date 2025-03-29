@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:safeapp/home.dart';
 import 'package:safeapp/screens/auth/login.dart';
 import 'package:safeapp/screens/permission.dart';
 import 'package:safeapp/screens/securecontainer.dart';
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
          '/login': (context) => LoginScreen(),
         '/permissions': (context) => PermissionsScreen(),
         '/whitelist': (context) => const WhitelistScreen(),
+        '/home_screen': (context) => const HomeScreen(),
         '/secure_container': (context) => const SecureContainerScreen(),
       },
     );
