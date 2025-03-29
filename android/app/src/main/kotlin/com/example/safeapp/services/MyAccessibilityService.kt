@@ -13,9 +13,9 @@ class MyAccessibilityService : AccessibilityService() {
         val packageName = event.packageName?.toString() ?: return
         val monitoredApps = listOf("com.whatsapp", "com.example.safeapp")
 
-        if (packageName !in monitoredApps) {
-            return // Ignore all other apps
-        }
+        // if (packageName !in monitoredApps) {
+        //     return // Ignore all other apps
+        // }
 
         when (event.eventType) {
             AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED -> {
