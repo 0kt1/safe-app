@@ -1,3 +1,5 @@
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:flutter/material.dart';
 
 class SecureContainerScreen extends StatefulWidget {
@@ -25,6 +27,15 @@ class _SecureContainerScreenState extends State<SecureContainerScreen> {
   }
 }
 
+void openGooglePay() {
+  const intent = AndroidIntent(
+    action: 'android.intent.action.VIEW',
+    package: 'com.google.android.apps.nbu.paisa.user',
+    arguments: {'secure_launch': 'SecureBankHub'},
+    flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+  );
+  intent.launch();
+}
 
 class SecureAppTile extends StatelessWidget {
   final String appName;

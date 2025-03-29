@@ -9,16 +9,31 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.android.FlutterActivity
 import com.example.safeapp.services.MyDeviceAdminReceiver
 
 class MainActivity : FlutterActivity() {
+
+    private val CHANNEL = "device_admin_channel"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Check permissions when app starts
         checkPermissions()
+
+        // Setup Flutter method channel
+        MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "requestDeviceAdmin" -> {
+                    requestDeviceAdmin()
+                    result.success("Device Admin Request Sent")
+                }
+                else -> result.notImplemented()
+            }
+        }
     }
 
     private fun checkPermissions() {
@@ -49,5 +64,13 @@ class MainActivity : FlutterActivity() {
         val devicePolicyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         val componentName = ComponentName(this, MyDeviceAdminReceiver::class.java)
         return devicePolicyManager.isAdminActive(componentName)
+    }
+
+    private fun requestDeviceAdmin() {
+        val componentName = ComponentName(this, MyDeviceAdminReceiver::class.java)
+        val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName)
+        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "This app requires Device Admin permissions for security purposes.")
+        startActivity(intent)
     }
 }

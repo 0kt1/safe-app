@@ -10,6 +10,9 @@
 
     <!-- Permissions for Device Admin -->
     <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_ADMINS"/>
+
     
     <!-- Biometric and Fingerprint permissions -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
@@ -36,17 +39,22 @@
 
         <!-- Device Admin Receiver -->
         <receiver
-            android:name="com.example.safeapp.services.MyDeviceAdminReceiver"
-            android:permission="android.permission.BIND_DEVICE_ADMIN"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin" />
-            
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
+    android:name=".services.MyDeviceAdminReceiver"
+    android:permission="android.permission.BIND_DEVICE_ADMIN"
+    android:exported="true">
+    <meta-data
+        android:name="android.app.device_admin"
+        android:resource="@xml/device_admin" />
+    
+    <intent-filter>
+        <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+        <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
+    </intent-filter>
+</receiver>
+
+
+
+
 
 
 

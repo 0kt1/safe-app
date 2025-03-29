@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PermissionsScreen extends StatefulWidget {
   @override
@@ -12,12 +17,141 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
   bool accessibilityGranted = false;
   bool usageStatsGranted = false;
   bool deviceAdminGranted = false;
+  bool isRegistered = false;
 
   @override
   void initState() {
     super.initState();
+    checkRegistration();
     checkPermissions();
   }
+
+  Future<void> checkRegistration() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool registered = prefs.getBool('device_registered') ?? false;
+    if (!registered) {
+      await registerDevice();
+    }
+  }
+
+  Future<void> registerDevice() async {
+    String? deviceId = await getDeviceId();
+    if (deviceId == null) return;
+
+    Map<String, String>? credentials = await askForCredentials();
+    if (credentials == null) return;
+
+    // String? password = await askForPassword();
+    // if (password == null || password.isEmpty) return;
+
+    var response = await http.post(
+      Uri.parse('https://your-api.com/register'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'device_id': deviceId,
+        'username': credentials['username'],
+        'password': credentials['password'],
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setBool('device_registered', true);
+      setState(() => isRegistered = true);
+    } else {
+      // Handle error
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Registration Failed'),
+            content: Text('Please try again.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future<String?> getDeviceId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    print("Device ID: ${androidInfo.id}");
+    return androidInfo.id; // Unique device ID
+  }
+
+  Future<Map<String, String>?> askForCredentials() async {
+    TextEditingController usernameController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
+    return await showDialog<Map<String, String>>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Register Device'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: usernameController,
+                decoration: InputDecoration(labelText: 'Username'),
+              ),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'Password'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, null),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, {
+                'username': usernameController.text,
+                'password': passwordController.text,
+              }),
+              child: Text('Confirm'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Future<String?> askForPassword() async {
+  //   TextEditingController controller = TextEditingController();
+  //   return await showDialog<String>(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Text('Set Device Password'),
+  //         content: TextField(
+  //           controller: controller,
+  //           obscureText: true,
+  //           decoration: InputDecoration(labelText: 'Password'),
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.pop(context, null),
+  //             child: Text('Cancel'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () => Navigator.pop(context, controller.text),
+  //             child: Text('Confirm'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   Future<void> checkPermissions() async {
     // Check Accessibility Service
@@ -38,30 +172,103 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
     });
   }
 
-  Future<void> requestAccessibility() async {
-    const intent = AndroidIntent(
-      action: 'android.settings.ACCESSIBILITY_SETTINGS',
-      flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+  void showPermissionDialog(
+      String title, String message, VoidCallback onConfirm) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                onConfirm();
+              },
+              child: const Text("Enable"),
+            ),
+          ],
+        );
+      },
     );
-    await intent.launch();
+  }
+
+  Future<void> requestAccessibility() async {
+    showPermissionDialog(
+      "Enable Accessibility Service",
+      "This is required to detect foreground apps and improve security. We do not collect or store any personal data.",
+      () async {
+        const intent = AndroidIntent(
+          action: 'android.settings.ACCESSIBILITY_SETTINGS',
+          flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+        );
+        await intent.launch();
+      },
+    );
   }
 
   Future<void> requestUsageStats() async {
-    const intent = AndroidIntent(
-      action: 'android.settings.USAGE_ACCESS_SETTINGS',
-      flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+    showPermissionDialog(
+      "Enable Usage Stats",
+      "Usage stats are needed to monitor app activity and enhance security.",
+      () async {
+        const intent = AndroidIntent(
+          action: 'android.settings.USAGE_ACCESS_SETTINGS',
+          flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+        );
+        await intent.launch();
+      },
     );
-    await intent.launch();
   }
 
+  // Future<void> requestDeviceAdmin() async {
+  //   const intent = AndroidIntent(
+  //     action: 'android.app.action.ADD_DEVICE_ADMIN',
+  //     package: 'com.example.safeapp', // ✅ Your app package
+  //     componentName:
+  //         'com.example.safeapp/.services.MyDeviceAdminReceiver', // ✅ Full path
+  //     flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+  //     arguments: {
+  //     'android.app.extra.DEVICE_ADMIN': 'com.example.safeapp/.services.MyDeviceAdminReceiver',
+  //   },
+  //   );
+
+  //   await intent.launch();
+  // }
+
+//   Future<void> requestDeviceAdmin() async {
+//   const intent = AndroidIntent(
+//     action: 'android.app.action.ADD_DEVICE_ADMIN',
+//     package: 'com.example.safeapp', // ✅ Your app package
+//     componentName: '.services.MyDeviceAdminReceiver', // ✅ Correct format
+//     flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+//     arguments: {
+//       'android.app.extra.DEVICE_ADMIN': 'com.example.safeapp/.services.MyDeviceAdminReceiver',
+//     },
+//   );
+
+//   await intent.launch();
+// }
+
+  static const platform = MethodChannel('device_admin_channel');
+
   Future<void> requestDeviceAdmin() async {
-    const intent = AndroidIntent(
-      action: 'android.app.action.ADD_DEVICE_ADMIN',
-      package: 'com.example.safeapp',
-      componentName: 'com.example.safeapp.services.MyDeviceAdminReceiver',
-      flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+    showPermissionDialog(
+      "Enable Device Admin",
+      "Device Admin is required to block unauthorized apps and enhance security.",
+      () async {
+        try {
+          await platform.invokeMethod('requestDeviceAdmin');
+        } on PlatformException catch (e) {
+          print("Failed to request Device Admin: '${e.message}'.");
+        }
+      },
     );
-    await intent.launch();
   }
 
   @override
@@ -72,6 +279,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            if (!isRegistered) const Text("Registering device... Please wait"),
             ListTile(
               title: const Text("Accessibility Service"),
               subtitle: const Text("Needed to detect foreground apps."),

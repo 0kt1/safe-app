@@ -8,17 +8,25 @@ import android.util.Log
 class MyAccessibilityService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event != null && event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            val packageName = event.packageName?.toString() ?: return
-            Log.d("AccessibilityService", "Foreground App: $packageName")
+        if (event == null) return
 
-            // Here, you can check if the app is a banking/payment app and take action
-            if (isBankingApp(packageName)) {
-                Log.d("AccessibilityService", "Banking app detected: $packageName")
-                // You can implement screen recording prevention here
+        val packageName = event.packageName?.toString() ?: return
+        val monitoredApps = listOf("com.whatsapp", "com.example.safeapp")
+
+        if (packageName !in monitoredApps) {
+            return // Ignore all other apps
+        }
+
+        when (event.eventType) {
+            AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED -> {
+                Log.d("MyAccessibilityService", "App Opened: $packageName")
+            }
+            AccessibilityEvent.TYPE_VIEW_CLICKED -> {
+                Log.d("MyAccessibilityService", "User clicked in: $packageName")
             }
         }
     }
+
 
     override fun onInterrupt() {
         Log.d("AccessibilityService", "Service Interrupted")
