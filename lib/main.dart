@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:safeapp/screens/auth/login.dart';
 import 'package:safeapp/screens/permission.dart';
 import 'package:safeapp/screens/securecontainer.dart';
@@ -6,6 +7,11 @@ import 'package:safeapp/screens/welcome.dart';
 import 'package:safeapp/screens/whitelist.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Block screenshots and screen recordings at runtime
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  
   runApp(const MainApp());
 }
 

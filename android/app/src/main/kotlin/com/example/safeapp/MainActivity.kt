@@ -13,6 +13,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.android.FlutterActivity
 import com.example.safeapp.services.MyDeviceAdminReceiver
+import android.view.WindowManager.LayoutParams
 
 class MainActivity : FlutterActivity() {
 
@@ -20,6 +21,8 @@ class MainActivity : FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        getWindow().addFlags(LayoutParams.FLAG_SECURE);
 
         // Check permissions when app starts
         checkPermissions()
