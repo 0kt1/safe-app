@@ -312,6 +312,14 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              onPressed: () async {
+                if (!(await Permission.systemAlertWindow.isGranted)) {
+                  await openAppSettings();
+                }
+              },
+              child: Text("Allow Overlay Permission"),
+            ),
+            ElevatedButton(
               onPressed: () {
                 // Navigator.pushReplacementNamed(context, '/secure_container');
                 Navigator.pushReplacementNamed(context, '/home_screen');

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeapp/screens/dashboard.dart';
+import 'package:safeapp/screens/profile.dart';
+import 'package:safeapp/screens/safe_app_screen.dart';
 import 'package:safeapp/screens/securecontainer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,8 +15,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int _selectedIndex = 0;
   final List<Widget> _screens = [
-    SecureContainerScreen(),
+    // SecureContainerScreen(),
+    SafeAppScreen(),
     DashboardPage(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -40,6 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,

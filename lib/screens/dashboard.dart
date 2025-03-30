@@ -38,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
         });
       }
 
-      print("Foreground App: $foregroundApp"); // Debugging line
+      // print("Foreground App: $foregroundApp"); // Debugging line
     });
 
 

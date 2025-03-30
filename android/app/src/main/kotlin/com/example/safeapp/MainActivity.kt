@@ -14,15 +14,21 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.android.FlutterActivity
 import com.example.safeapp.services.MyDeviceAdminReceiver
 import android.view.WindowManager.LayoutParams
+import android.view.WindowManager
+
 
 class MainActivity : FlutterActivity() {
 
     private val CHANNEL = "device_admin_channel"
-
+    // private val SCREEN_PROTECTION_CHANNEL = "safeapp/screen_protection"
+private val SCREEN_PROTECTION_CHANNEL = "com.example.safeapp/launch"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         getWindow().addFlags(LayoutParams.FLAG_SECURE);
+
+         // Enable screen protection initially
+        // enableScreenProtection()
 
         // Check permissions when app starts
         checkPermissions()
@@ -36,6 +42,63 @@ class MainActivity : FlutterActivity() {
                 }
                 else -> result.notImplemented()
             }
+        }
+
+        MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, SCREEN_PROTECTION_CHANNEL).setMethodCallHandler { call, result ->
+            if (call.method == "launchApp") {
+                val packageName = call.argument<String>("package")
+                val intent = packageManager.getLaunchIntentForPackage(packageName!!)
+                if (intent != null) {
+                    startActivity(intent)
+                    result.success(null)
+                } else {
+                    result.error("UNAVAILABLE", "App not found", null)
+                }
+            }
+        }
+    }
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+
+        // Device Admin MethodChannel
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "requestDeviceAdmin" -> {
+                    requestDeviceAdmin()
+                    result.success("Device Admin Request Sent")
+                }
+                else -> result.notImplemented()
+            }
+        }
+
+        // Screen Protection MethodChannel
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SCREEN_PROTECTION_CHANNEL).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "enableScreenProtection" -> {
+                    enableScreenProtection()
+                    result.success(null)
+                }
+                "disableScreenProtection" -> {
+                    disableScreenProtection()
+                    result.success(null)
+                }
+                else -> result.notImplemented()
+            }
+        }
+    }
+
+    private fun enableScreenProtection() {
+        runOnUiThread {
+            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+            Log.d("SafeApp", "Screen protection enabled")
+        }
+    }
+
+    private fun disableScreenProtection() {
+        runOnUiThread {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+            Log.d("SafeApp", "Screen protection disabled")
         }
     }
 
