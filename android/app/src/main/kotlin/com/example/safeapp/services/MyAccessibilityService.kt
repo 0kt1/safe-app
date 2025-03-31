@@ -22,10 +22,10 @@ import android.provider.Settings
 
 class MyAccessibilityService : AccessibilityService() {
 
-    private var overlayView: View? = null
+    // private var overlayView: View? = null
 
-    private val messagesApp = "com.samsung.android.messaging" // Messages App Package Name
-    private val unsafeDomains = listOf("phishing.com", "scam-site.net", "fakebank.io") // Unsafe links
+    // private val messagesApp = "com.samsung.android.messaging" // Messages App Package Name
+    // private val unsafeDomains = listOf("phishing.com", "scam-site.net", "fakebank.io") // Unsafe links
 
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -55,22 +55,22 @@ class MyAccessibilityService : AccessibilityService() {
         //     }
         // }
 
-        if (packageName == messagesApp) {
-            // val text = event.text?.joinToString(" ") ?: return
-            val text = event.source?.text?.toString() ?: return
+        // if (packageName == messagesApp) {
+        //     // val text = event.text?.joinToString(" ") ?: return
+        //     val text = event.source?.text?.toString() ?: return
 
-            // val text = event.text
-            Log.d("AccessibilityService", "Window 1234 message Changed, New Text: $text")
+        //     // val text = event.text
+        //     Log.d("AccessibilityService", "Window 1234 message Changed, New Text: $text")
 
-            // val extractedUrl = extractUrl(text)
-            // if (extractedUrl != null && isUnsafeLink(extractedUrl)) {
-            //     showWarningDialog(extractedUrl)
-            // }
+        //     // val extractedUrl = extractUrl(text)
+        //     // if (extractedUrl != null && isUnsafeLink(extractedUrl)) {
+        //     //     showWarningDialog(extractedUrl)
+        //     // }
 
-            // Traverse the view hierarchy to find links
-            val rootNode = rootInActiveWindow
-            findLinks(rootNode)
-        }
+        //     // Traverse the view hierarchy to find links
+        //     val rootNode = rootInActiveWindow
+        //     findLinks(rootNode)
+        // }
 
 
         when (event.eventType) {
@@ -118,38 +118,38 @@ class MyAccessibilityService : AccessibilityService() {
         Log.d("AccessibilityService", "Service Connected")
     }
 
-    private fun findLinks(node: AccessibilityNodeInfo?) {
-        if (node == null) return
+    // private fun findLinks(node: AccessibilityNodeInfo?) {
+    //     if (node == null) return
 
-        if (node.text != null) {
-            val text = node.text.toString()
-            Log.d("AccessibilityService", "Found text: $text")
-            val extractedUrl = extractUrl(text)
-            if (extractedUrl != null && !isUnsafeLink(extractedUrl)) {
-                showWarningDialog(extractedUrl)
-            }
-        }
+    //     if (node.text != null) {
+    //         val text = node.text.toString()
+    //         Log.d("AccessibilityService", "Found text: $text")
+    //         val extractedUrl = extractUrl(text)
+    //         if (extractedUrl != null && !isUnsafeLink(extractedUrl)) {
+    //             showWarningDialog(extractedUrl)
+    //         }
+    //     }
 
-        for (i in 0 until node.childCount) {
-            findLinks(node.getChild(i))
-        }
-    }
+    //     for (i in 0 until node.childCount) {
+    //         findLinks(node.getChild(i))
+    //     }
+    // }
 
 
-    private fun isBankingApp(packageName: String): Boolean {
-        val bankingApps = listOf("com.example.bankapp", "com.google.android.apps.walletnfcrel") // Add banking/payment app package names
-        return bankingApps.contains(packageName)
-    }
+    // private fun isBankingApp(packageName: String): Boolean {
+    //     val bankingApps = listOf("com.example.bankapp", "com.google.android.apps.walletnfcrel") // Add banking/payment app package names
+    //     return bankingApps.contains(packageName)
+    // }
 
-    private fun extractUrl(text: String): String? {
-        val regex = "(https?://[a-zA-Z0-9./?=_-]+)".toRegex()
-        val matchResult = regex.find(text)
-        return matchResult?.value
-    }
+    // private fun extractUrl(text: String): String? {
+    //     val regex = "(https?://[a-zA-Z0-9./?=_-]+)".toRegex()
+    //     val matchResult = regex.find(text)
+    //     return matchResult?.value
+    // }
 
-    private fun isUnsafeLink(url: String): Boolean {
-        return unsafeDomains.any { domain -> url.contains(domain, ignoreCase = true) }
-    }
+    // private fun isUnsafeLink(url: String): Boolean {
+    //     return unsafeDomains.any { domain -> url.contains(domain, ignoreCase = true) }
+    // }
 
     private fun showWarningDialog(url: String) {
         Handler(Looper.getMainLooper()).post {

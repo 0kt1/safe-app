@@ -22,61 +22,62 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
   @override
   void initState() {
     super.initState();
-    checkRegistration();
+    // checkRegistration();
     checkPermissions();
   }
 
-  Future<void> checkRegistration() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool registered = prefs.getBool('device_registered') ?? false;
-    if (!registered) {
-      await registerDevice();
-    }
-  }
+  // Future<void> checkRegistration() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   bool registered = prefs.getBool('device_registered') ?? false;
+  //   if (!registered) {
+  //     await registerDevice();
+  //   }
+  // }
 
-  Future<void> registerDevice() async {
-    String? deviceId = await getDeviceId();
-    if (deviceId == null) return;
+  // Future<void> registerDevice() async {
+  //   String? deviceId = await getDeviceId();
+  //   if (deviceId == null) return;
 
-    Map<String, String>? credentials = await askForCredentials();
-    if (credentials == null) return;
+  //   Map<String, String>? credentials = await askForCredentials();
+  //   if (credentials == null) return;
 
-    // String? password = await askForPassword();
-    // if (password == null || password.isEmpty) return;
+  //   // String? password = await askForPassword();
+  //   // if (password == null || password.isEmpty) return;
 
-    var response = await http.post(
-      Uri.parse('https://your-api.com/register'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'device_id': deviceId,
-        'username': credentials['username'],
-        'password': credentials['password'],
-      }),
-    );
+  //   var response = await http.post(
+  //     Uri.parse('http://192.168.137.1:8000/auth/register'),
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: jsonEncode({
+  //       'deviceid': deviceId,
+  //       'username': credentials['username'],
+  //       'password': credentials['password'],
+  //       'role': 'user',
+  //     }),
+  //   );
 
-    if (response.statusCode == 200) {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setBool('device_registered', true);
-      setState(() => isRegistered = true);
-    } else {
-      // Handle error
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Registration Failed'),
-            content: Text('Please try again.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     prefs.setBool('device_registered', true);
+  //     setState(() => isRegistered = true);
+  //   } else {
+  //     // Handle error
+  //     showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: Text('Registration Failed'),
+  //           content: Text('Please try again.'),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context),
+  //               child: Text('OK'),
+  //             ),
+  //           ],
+  //         );
+  //       },
+  //     );
+  //   }
+  // }
 
   Future<String?> getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -85,46 +86,46 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
     return androidInfo.id; // Unique device ID
   }
 
-  Future<Map<String, String>?> askForCredentials() async {
-    TextEditingController usernameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+  // Future<Map<String, String>?> askForCredentials() async {
+  //   TextEditingController usernameController = TextEditingController();
+  //   TextEditingController passwordController = TextEditingController();
 
-    return await showDialog<Map<String, String>>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Register Device'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
-              ),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Password'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, null),
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, {
-                'username': usernameController.text,
-                'password': passwordController.text,
-              }),
-              child: Text('Confirm'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //   return await showDialog<Map<String, String>>(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Text('Register Device'),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             TextField(
+  //               controller: usernameController,
+  //               decoration: InputDecoration(labelText: 'Username'),
+  //             ),
+  //             TextField(
+  //               controller: passwordController,
+  //               obscureText: true,
+  //               decoration: InputDecoration(labelText: 'Password'),
+  //             ),
+  //           ],
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.pop(context, null),
+  //             child: Text('Cancel'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () => Navigator.pop(context, {
+  //               'username': usernameController.text,
+  //               'password': passwordController.text,
+  //             }),
+  //             child: Text('Confirm'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   // Future<String?> askForPassword() async {
   //   TextEditingController controller = TextEditingController();

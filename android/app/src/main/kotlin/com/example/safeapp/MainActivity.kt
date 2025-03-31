@@ -21,7 +21,7 @@ class MainActivity : FlutterActivity() {
 
     private val CHANNEL = "device_admin_channel"
     // private val SCREEN_PROTECTION_CHANNEL = "safeapp/screen_protection"
-private val SCREEN_PROTECTION_CHANNEL = "com.example.safeapp/launch"
+    // private val SCREEN_PROTECTION_CHANNEL = "com.example.safeapp/launch"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,18 +44,18 @@ private val SCREEN_PROTECTION_CHANNEL = "com.example.safeapp/launch"
             }
         }
 
-        MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, SCREEN_PROTECTION_CHANNEL).setMethodCallHandler { call, result ->
-            if (call.method == "launchApp") {
-                val packageName = call.argument<String>("package")
-                val intent = packageManager.getLaunchIntentForPackage(packageName!!)
-                if (intent != null) {
-                    startActivity(intent)
-                    result.success(null)
-                } else {
-                    result.error("UNAVAILABLE", "App not found", null)
-                }
-            }
-        }
+        // MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, SCREEN_PROTECTION_CHANNEL).setMethodCallHandler { call, result ->
+        //     if (call.method == "launchApp") {
+        //         val packageName = call.argument<String>("package")
+        //         val intent = packageManager.getLaunchIntentForPackage(packageName!!)
+        //         if (intent != null) {
+        //             startActivity(intent)
+        //             result.success(null)
+        //         } else {
+        //             result.error("UNAVAILABLE", "App not found", null)
+        //         }
+        //     }
+        // }
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -73,34 +73,34 @@ private val SCREEN_PROTECTION_CHANNEL = "com.example.safeapp/launch"
         }
 
         // Screen Protection MethodChannel
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SCREEN_PROTECTION_CHANNEL).setMethodCallHandler { call, result ->
-            when (call.method) {
-                "enableScreenProtection" -> {
-                    enableScreenProtection()
-                    result.success(null)
-                }
-                "disableScreenProtection" -> {
-                    disableScreenProtection()
-                    result.success(null)
-                }
-                else -> result.notImplemented()
-            }
-        }
+        // MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SCREEN_PROTECTION_CHANNEL).setMethodCallHandler { call, result ->
+        //     when (call.method) {
+        //         "enableScreenProtection" -> {
+        //             enableScreenProtection()
+        //             result.success(null)
+        //         }
+        //         "disableScreenProtection" -> {
+        //             disableScreenProtection()
+        //             result.success(null)
+        //         }
+        //         else -> result.notImplemented()
+        //     }
+        // }
     }
 
-    private fun enableScreenProtection() {
-        runOnUiThread {
-            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
-            Log.d("SafeApp", "Screen protection enabled")
-        }
-    }
+    // private fun enableScreenProtection() {
+    //     runOnUiThread {
+    //         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+    //         Log.d("SafeApp", "Screen protection enabled")
+    //     }
+    // }
 
-    private fun disableScreenProtection() {
-        runOnUiThread {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-            Log.d("SafeApp", "Screen protection disabled")
-        }
-    }
+    // private fun disableScreenProtection() {
+    //     runOnUiThread {
+    //         window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    //         Log.d("SafeApp", "Screen protection disabled")
+    //     }
+    // }
 
     private fun checkPermissions() {
         if (!isAccessibilityEnabled()) {

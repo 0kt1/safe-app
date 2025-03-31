@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user_model.dart';
-import '../services/api_service.dart';
+import '../services/get_me.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -14,7 +14,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _userFuture = ApiService.fetchUserData();
+    _userFuture = GetUser.fetchUserData();
   }
 
   void _openTrustedWebsite(String url) async {
@@ -43,11 +43,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // return const Center(child: Text("No data available"));
           }
 
-          final user = snapshot.data ?? User(
-            userName: "Unknown",
-            deviceId: "Unknown",
-            phoneNumber: "Unknown",
-          );
+          final user = snapshot.data ??
+              User(
+                userName: "Unknown",
+                deviceId: "Unknown",
+                phoneNumber: "Unknown",
+                role: 'Unknown',
+              );
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -56,19 +58,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 ListTile(
                   leading: const Icon(Icons.person, size: 40),
-                  title: Text(user.userName, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  title: Text(user.userName,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
                   subtitle: const Text("User Name"),
                 ),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.devices, size: 40),
-                  title: Text(user.deviceId, style: const TextStyle(fontSize: 18)),
+                  title:
+                      Text(user.deviceId, style: const TextStyle(fontSize: 18)),
                   subtitle: const Text("Device ID"),
                 ),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.phone, size: 40),
-                  title: Text(user.phoneNumber, style: const TextStyle(fontSize: 18)),
+                  title: Text(user.phoneNumber,
+                      style: const TextStyle(fontSize: 18)),
                   subtitle: const Text("Linked Phone Number"),
                 ),
                 const Divider(),

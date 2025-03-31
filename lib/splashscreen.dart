@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safeapp/screens/welcome.dart';
+import 'package:safeapp/services/auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +14,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _checkToken();
+  }
+
+  Future<void> _checkToken() async {
+    String? token = await AuthService.getToken();
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-      );
+      if (token?.isEmpty ?? true) {
+        // Navigate to the welcome screen if token is empty
+        Navigator.pushReplacementNamed(context, '/welcome');
+      } else {
+        // Navigate directly to the login screen if token is not empty
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     });
   }
 
@@ -27,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.black, // Background color
       body: Center(
         child: Image.asset(
-          'assets/icon.png', // Make sure your logo is in the assets folder
+          'assets/icon/icon.png', // Make sure your logo is in the assets folder
           width: 150,
           height: 150,
         ),

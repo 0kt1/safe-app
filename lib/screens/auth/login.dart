@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:safeapp/services/auth.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,12 +12,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController pinController = TextEditingController();
 
   Future<void> _authenticate() async {
-    bool authenticated = await auth.authenticate(
-      localizedReason: 'Authenticate to access SecureBank Hub',
-      options: const AuthenticationOptions(biometricOnly: true),
-    );
-    if (authenticated) {
-      Navigator.pushReplacementNamed(context, '/permissions');
+    String? token = await AuthService.getToken();
+    if (token?.isEmpty ?? true) {
+      bool authenticated = await auth.authenticate(
+        localizedReason: 'Authenticate to access SecureBank Hub',
+        options: const AuthenticationOptions(biometricOnly: true),
+      );
+      if (authenticated) {
+        Navigator.pushReplacementNamed(context, '/safe_login');
+      }
+    } else {
+      Navigator.pushReplacementNamed(context, '/safe_login');
     }
   }
 
@@ -40,9 +46,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                if (pinController.text == '1234') { // Placeholder PIN check
-                  Navigator.pushReplacementNamed(context, '/permissions');
+              onPressed: () async {
+                if (pinController.text == '1234') {
+                  // Placeholder PIN check
+                  String? token = await AuthService.getToken();
+                  if (token?.isEmpty ?? true) {
+                    Navigator.pushReplacementNamed(context, '/safe_login');
+                  } else {
+                    Navigator.pushReplacementNamed(context, '/permissions');
+                  }
                 }
               },
               child: const Text("Login"),
