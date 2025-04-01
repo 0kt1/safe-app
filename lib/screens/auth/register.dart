@@ -5,7 +5,10 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
 
 class DeviceRegistrationScreen extends StatefulWidget {
+  const DeviceRegistrationScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _DeviceRegistrationScreenState createState() => _DeviceRegistrationScreenState();
 }
 
@@ -40,12 +43,12 @@ class _DeviceRegistrationScreenState extends State<DeviceRegistrationScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Registration Failed'),
-          content: Text('Please try again.'),
+          title: const Text('Registration Failed'),
+          content: const Text('Please try again.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -63,26 +66,26 @@ class _DeviceRegistrationScreenState extends State<DeviceRegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register Device')),
+      appBar: AppBar(title: const Text('Register Device')),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: 'Username'),
             ),
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: registerDevice,
-                    child: Text('Register'),
+                    child: const Text('Register'),
                   ),
           ],
         ),

@@ -11,34 +11,34 @@ class _WhitelistScreenState extends State<WhitelistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Whitelist Apps")),
+      appBar: AppBar(title: const Text("Whitelist Apps")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text("Select banking apps to protect:",
+            const Text("Select banking apps to protect:",
                 style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: ListView(
                 children: [
                   CheckboxListTile(
-                    title: Text("Google Pay"),
+                    title: const Text("Google Pay"),
                     value: true,
                     onChanged: (val) {},
                   ),
                   CheckboxListTile(
-                    title: Text("Paytm"),
+                    title: const Text("Paytm"),
                     value: true,
                     onChanged: (val) {},
                   ),
                   CheckboxListTile(
-                    title: Text("PhonePe"),
+                    title: const Text("PhonePe"),
                     value: false,
                     onChanged: (val) {},
                   ),
                   CheckboxListTile(
-                    title: Text("HDFC Bank"),
+                    title: const Text("HDFC Bank"),
                     value: true,
                     onChanged: (val) {},
                   ),
@@ -49,7 +49,7 @@ class _WhitelistScreenState extends State<WhitelistScreen> {
               onPressed: () {
                 Navigator.pushNamed(context, '/home_screen');
               },
-              child: Text("Proceed"),
+              child: const Text("Proceed"),
             ),
           ],
         ),

@@ -1,15 +1,15 @@
-import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PermissionsScreen extends StatefulWidget {
+  const PermissionsScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _PermissionsScreenState createState() => _PermissionsScreenState();
 }
 
@@ -318,7 +318,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                   await openAppSettings();
                 }
               },
-              child: Text("Allow Overlay Permission"),
+              child: const Text("Allow Overlay Permission"),
             ),
             ElevatedButton(
               onPressed: () {

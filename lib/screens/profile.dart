@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:safeapp/services/auth.dart';
 import '../models/user_model.dart';
 import '../services/get_me.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
@@ -68,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   leading: const Icon(Icons.devices, size: 40),
                   title:
                       Text(user.deviceId, style: const TextStyle(fontSize: 18)),
-                  subtitle: const Text("Device ID"),
+                  subtitle: const Text("Registered Device ID"),
                 ),
                 const Divider(),
                 ListTile(
@@ -76,6 +80,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: Text(user.phoneNumber,
                       style: const TextStyle(fontSize: 18)),
                   subtitle: const Text("Linked Phone Number"),
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.logout, size: 40),
+                  title: Text(user.phoneNumber,
+                      style: const TextStyle(fontSize: 18)),
+                  subtitle: const Text("Logout"),
+                  onTap: () => {
+                    AuthService.logout(),
+                    Navigator.pushReplacementNamed(context, '/login')
+                  },
                 ),
                 const Divider(),
                 Center(

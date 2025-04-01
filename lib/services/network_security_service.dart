@@ -66,19 +66,19 @@ class NetworkSecurityService {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Permission Required"),
-          content: Text("This app needs location permission to check your Wi-Fi network security."),
+          title: const Text("Permission Required"),
+          content: const Text("This app needs location permission to check your Wi-Fi network security."),
           actions: [
             TextButton(
               onPressed: () async {
                 Navigator.pop(context);
                 await Permission.location.request();
               },
-              child: Text("Grant Permission"),
+              child: const Text("Grant Permission"),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
           ],
         );
@@ -92,8 +92,8 @@ class NetworkSecurityService {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Location Services Disabled"),
-          content: Text(
+          title: const Text("Location Services Disabled"),
+          content: const Text(
               "To check Wi-Fi security, please enable Location Services in your device settings."),
           actions: [
             TextButton(
@@ -101,11 +101,11 @@ class NetworkSecurityService {
                 Navigator.pop(context);
                 await Geolocator.openLocationSettings();
               },
-              child: Text("Open Settings"),
+              child: const Text("Open Settings"),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
           ],
         );

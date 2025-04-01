@@ -5,7 +5,10 @@ import 'package:safeapp/services/network_security_service.dart';
 import 'package:usage_stats/usage_stats.dart';
 
 class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _DashboardPageState createState() => _DashboardPageState();
 }
 
@@ -17,8 +20,7 @@ class _DashboardPageState extends State<DashboardPage> {
   String foregroundApp = "Unknown";
   final ForegroundMonitorService _monitorService = ForegroundMonitorService();
 
-  final NetworkSecurityService _networkSecurityService =
-      NetworkSecurityService();
+  // final NetworkSecurityService _networkSecurityService = NetworkSecurityService();
   bool isPublicWiFi = false;
 
   @override
@@ -66,11 +68,11 @@ class _DashboardPageState extends State<DashboardPage> {
 
   if (isPublicWiFi) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Warning: You are using a public Wi-Fi!")),
+      const SnackBar(content: Text("Warning: You are using a public Wi-Fi!")),
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("You're on a secure network.")),
+      const SnackBar(content: Text("You're on a secure network.")),
     );
   }
 }
@@ -120,18 +122,18 @@ class _DashboardPageState extends State<DashboardPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Current Foreground App:",
+                  const Text("Current Foreground App:",
                       style: TextStyle(fontSize: 18)),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   if (isPublicWiFi) // 🚨 Show warning only if on public Wi-Fi
                     Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: Colors.red.shade100,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.red, width: 1),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.warning, color: Colors.red),
                           SizedBox(width: 10),
@@ -147,7 +149,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   Text(
                     foregroundApp,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),

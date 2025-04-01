@@ -31,13 +31,13 @@ class MainApp extends StatelessWidget {
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/welcome': (context) => const WelcomeScreen(),
-        '/login': (context) => LoginScreen(),
-        '/safe_login': (context) => SafeLogin(),
-        '/register': (context) => DeviceRegistrationScreen(),
-        '/permissions': (context) => PermissionsScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/safe_login': (context) => const SafeLogin(),
+        '/register': (context) => const DeviceRegistrationScreen(),
+        '/permissions': (context) => const PermissionsScreen(),
         '/whitelist': (context) => const WhitelistScreen(),
         '/home_screen': (context) => const HomeScreen(),
-        '/secure_container': (context) => const SecureContainerScreen(),
+        // '/secure_container': (context) => const SecureContainerScreen(),
       },
     );
   }

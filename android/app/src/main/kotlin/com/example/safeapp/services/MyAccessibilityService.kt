@@ -19,6 +19,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.accessibility.AccessibilityNodeInfo
 import android.provider.Settings
+import android.content.SharedPreferences
 
 class MyAccessibilityService : AccessibilityService() {
 
@@ -71,6 +72,15 @@ class MyAccessibilityService : AccessibilityService() {
         //     val rootNode = rootInActiveWindow
         //     findLinks(rootNode)
         // }
+
+
+        if (!isTrustedApp(packageName)) {
+            val text = event.text?.joinToString(" ") ?: return
+            if (text.contains("OTP", ignoreCase = true)) {
+                Log.d("SafeApp", "Blocked OTP access for: $packageName")
+                showWarningDialog("OTP access blocked for an untrusted app.")
+            }
+        }
 
 
         when (event.eventType) {
@@ -151,23 +161,34 @@ class MyAccessibilityService : AccessibilityService() {
     //     return unsafeDomains.any { domain -> url.contains(domain, ignoreCase = true) }
     // }
 
-    private fun showWarningDialog(url: String) {
-        Handler(Looper.getMainLooper()).post {
-            val builder = AlertDialog.Builder(this@MyAccessibilityService)
-            builder.setTitle("Warning: Unsafe Link Detected!")
-            builder.setMessage("You are trying to open an unauthorized link:\n$url\n\nIt may be dangerous. Do you still want to continue?")
-            builder.setPositiveButton("Ignore") { dialog, _ ->
-                dialog.dismiss()
-            }
-            builder.setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
+    // private fun showWarningDialog(url: String) {
+    //     Handler(Looper.getMainLooper()).post {
+    //         val builder = AlertDialog.Builder(this@MyAccessibilityService)
+    //         builder.setTitle("Warning: Unsafe Link Detected!")
+    //         builder.setMessage("You are trying to open an unauthorized link:\n$url\n\nIt may be dangerous. Do you still want to continue?")
+    //         builder.setPositiveButton("Ignore") { dialog, _ ->
+    //             dialog.dismiss()
+    //         }
+    //         builder.setNegativeButton("Cancel") { dialog, _ ->
+    //             dialog.dismiss()
+    //         }
 
-            val dialog = builder.create()
-            dialog.window?.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY) // Set overlay window type
-            dialog.show()
-        }
+    //         val dialog = builder.create()
+    //         dialog.window?.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY) // Set overlay window type
+    //         dialog.show()
+    //     }
+    // }
+
+    // Check if the app is trusted
+    private fun isTrustedApp(packageName: String): Boolean {
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("safeapp_prefs", Context.MODE_PRIVATE)
+        val trustedApps: Set<String>? = sharedPreferences.getStringSet("trusted_apps", emptySet())
+        return trustedApps?.contains(packageName) ?: false
     }
 
+    private fun showWarningDialog(message: String) {
+        Log.d("SafeApp", message)
+    }
 
 }

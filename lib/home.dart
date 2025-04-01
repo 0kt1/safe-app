@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:safeapp/screens/dashboard.dart';
 import 'package:safeapp/screens/profile.dart';
 import 'package:safeapp/screens/safe_app_screen.dart';
-import 'package:safeapp/screens/securecontainer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,9 +15,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screens = [
     // SecureContainerScreen(),
-    SafeAppScreen(),
-    DashboardPage(),
-    ProfileScreen(),
+    const SafeAppScreen(),
+    const DashboardPage(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

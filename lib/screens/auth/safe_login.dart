@@ -4,7 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
 class SafeLogin extends StatefulWidget {
+  const SafeLogin({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SafeLoginState createState() => _SafeLoginState();
 }
 
@@ -51,7 +54,7 @@ class _SafeLoginState extends State<SafeLogin> {
 
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login successful! Redirecting...")),
+        const SnackBar(content: Text("Login successful! Redirecting...")),
       );
 
       // Navigate to home screen after login
@@ -72,7 +75,7 @@ class _SafeLoginState extends State<SafeLogin> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(), // Dismiss keyboard
       child: Scaffold(
-        appBar: AppBar(title: Text("Login")),
+        appBar: AppBar(title: const Text("Login")),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -81,9 +84,9 @@ class _SafeLoginState extends State<SafeLogin> {
               children: [
                 TextField(
                   controller: _usernameController,
-                  decoration: InputDecoration(labelText: "Username"),
+                  decoration: const InputDecoration(labelText: "Username"),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextField(
                   controller: _passwordController,
                   obscureText: _obscurePassword,
@@ -99,29 +102,29 @@ class _SafeLoginState extends State<SafeLogin> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 if (_errorMessage != null)
                   Text(
                     _errorMessage!,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 _isLoading
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : ElevatedButton(
                         onPressed: _login,
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                          textStyle: TextStyle(fontSize: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                          textStyle: const TextStyle(fontSize: 16),
                         ),
-                        child: Text("Login"),
+                        child: const Text("Login"),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, "/register");
                   },
-                  child: Text(
+                  child: const Text(
                     "If device not registered, please Register",
                     style: TextStyle(
                       color: Colors.blue,
