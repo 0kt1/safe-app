@@ -56,6 +56,9 @@ SafeApp is a next-generation security solution designed to **create a secure con
 🔗 Backend Repository
 ➡️ https://github.com/WannaCry016/safeapp-dashboard/tree/kt
 
+🔗 Dashboard Repository
+➡️ https://github.com/WannaCry016/safeapp-frontend
+
  **Requirements:**  
 > - Flutter SDK (`>=3.19.0`)  
 > - Android Studio / VS Code  
