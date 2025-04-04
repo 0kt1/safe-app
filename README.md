@@ -1,5 +1,10 @@
 # SafeApp
 
+<p align="center">
+  <img src="assets/icon/icon.png" alt="App logo" width="130"/>
+</p>
+
+
 # 🔐 SafeApp - Secure Financial Environment on Mobile
 
 SafeApp is a next-generation security solution designed to **create a secure containerized environment** where only trusted and verified financial apps (approved by Google/Apple and regulators) can be installed, accessed, and used.
@@ -8,7 +13,18 @@ SafeApp is a next-generation security solution designed to **create a secure con
 
 ---
 
-![Dashboard Screen](assets/screenshots/dashboard.jpg)
+![Dashboard Screen](assets/screenshots/web_dashboard.jpg)
+<p align="center">
+  <img src="assets/screenshots/pin_screen.jpg" alt="Pin Screen" width="130"/>
+  <img src="assets/screenshots/login_screen.jpg" alt="Login Screen" width="130"/>
+<img src="assets/screenshots/register_device_screen.jpg" alt="Register Device Screen" width="130"/> 
+<img src="assets/screenshots/permissions_screen.jpg" alt="Permissions Screen" width="130"/> 
+<img src="assets/screenshots/secure_screen.jpg" alt="Secure Screen" width="130"/> 
+<img src="assets/screenshots/manage_apps_screen.jpg" alt="Manage Apps Screen" width="130"/> 
+<img src="assets/screenshots/dashboard_screen.jpg" alt="Mobile Dashboard Screen" width="130"/>
+<img src="assets/screenshots/profile_screen.jpg" alt="Profile Screen" width="130"/>
+</p>
+
 
 ## 🚀 Features
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
@@ -32,6 +33,9 @@ class DeviceRegistrationScreen extends StatefulWidget {
 class _DeviceRegistrationScreenState extends State<DeviceRegistrationScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController residingController = TextEditingController();
+  TextEditingController bankAccountController = TextEditingController();
   bool isLoading = false;
   String suggestedPassword = "";
 
@@ -115,62 +119,263 @@ class _DeviceRegistrationScreenState extends State<DeviceRegistrationScreen> {
     return androidInfo.id;
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(title: const Text('Register Device')),
+  //     body: Padding(
+  //       padding: const EdgeInsets.all(16.0),
+  //       child: Column(
+  //         children: [
+  //           TextField(
+  //             controller: usernameController,
+  //             decoration: const InputDecoration(labelText: 'Username'),
+  //           ),
+  //           TextField(
+  //             controller: passwordController,
+  //             obscureText: true,
+  //             decoration: const InputDecoration(labelText: 'Password'),
+  //           ),
+  //           const SizedBox(height: 20),
+  //           const SizedBox(height: 10),
+  //           Text("Suggested Strong Password:", style: TextStyle(fontWeight: FontWeight.bold)),
+  //           SelectableText(
+  //             suggestedPassword,
+  //             style: TextStyle(fontSize: 16, color: Colors.blue),
+  //           ),
+  //           const SizedBox(height: 10),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               ElevatedButton(
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     passwordController.text = suggestedPassword;
+  //                   });
+  //                 },
+  //                 child: const Text("Use Suggested Password"),
+  //               ),
+  //               ElevatedButton(
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     suggestedPassword = generateStrongPassword();
+  //                   });
+  //                 },
+  //                 child: const Text("Regenerate Password"),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 20),
+  //           isLoading
+  //               ? const CircularProgressIndicator()
+  //               : ElevatedButton(
+  //                   onPressed: registerDevice,
+  //                   child: const Text('Register'),
+  //                 ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Register Device')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
-            ),
-            const SizedBox(height: 20),
-            const SizedBox(height: 10),
-            Text("Suggested Strong Password:", style: TextStyle(fontWeight: FontWeight.bold)),
-            SelectableText(
-              suggestedPassword,
-              style: TextStyle(fontSize: 16, color: Colors.blue),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      passwordController.text = suggestedPassword;
-                    });
-                  },
-                  child: const Text("Use Suggested Password"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      suggestedPassword = generateStrongPassword();
-                    });
-                  },
-                  child: const Text("Regenerate Password"),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            isLoading
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: registerDevice,
-                    child: const Text('Register'),
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFF0F172A),
+    appBar: AppBar(
+      title: const Text('Register Device'),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
+    body: SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Center(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+          padding: const EdgeInsets.all(25),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.white24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 30,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                "Device Registration",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: usernameController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.05),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
                   ),
-          ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.05),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.05),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: bankAccountController,
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: 'Bank Account  Number',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.05),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: residingController,
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: 'Your Usual Residing Place',
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.05),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "Suggested Strong Password:",
+                style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 5),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.white24),
+                ),
+                child: SelectableText(
+                  suggestedPassword,
+                  style: const TextStyle(fontSize: 16, color: Colors.blueAccent),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        passwordController.text = suggestedPassword;
+                      });
+                    },
+                    child: const Text("Use Suggested", style: TextStyle(
+                      color: Colors.white,
+                    ),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        suggestedPassword = generateStrongPassword();
+                      });
+                    },
+                    child: const Text("Regenerate", style: TextStyle(
+                      color: Colors.white,
+                    ),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              isLoading
+                  ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                  : ElevatedButton(
+                      onPressed: registerDevice,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.tealAccent.shade700,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: Text(
+                        "Register", 
+                        style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black,
+                        ),),
+                    ),
+            ],
+          ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
