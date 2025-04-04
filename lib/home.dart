@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:safeapp/screens/app_blocker_screen.dart';
 import 'package:safeapp/screens/dashboard.dart';
 import 'package:safeapp/screens/profile.dart';
 import 'package:safeapp/screens/safe_app_screen.dart';
+import 'package:safeapp/screens/test.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const SafeAppScreen(),
     const DashboardPage(),
     const ProfileScreen(),
+    const AppBlockerScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,6 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.telegram),
+            label: 'Block Apps',
           ),
         ],
         currentIndex: _selectedIndex,

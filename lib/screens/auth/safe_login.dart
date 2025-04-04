@@ -3,6 +3,8 @@ import 'package:safeapp/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../../services/aes.dart';
+
 class SafeLogin extends StatefulWidget {
   const SafeLogin({super.key});
 
@@ -38,9 +40,11 @@ class _SafeLoginState extends State<SafeLogin> {
     }
 
     try {
+      String encryptedUsername = AESHelper.encrypt(username);
+      String encryptedPassword = AESHelper.encrypt(password);
       final response = await _dio.post(
         "/login",
-        data: {"username": username, "password": password},
+        data: {"username": encryptedUsername, "password": encryptedPassword},
         options: Options(headers: {"Content-Type": "application/json"}),
       );
 

@@ -35,10 +35,18 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.black, // Background color
       body: Center(
-        child: Image.asset(
-          'assets/icon/icon.png', // Make sure your logo is in the assets folder
+        child: Container(
           width: 150,
           height: 150,
+          decoration: BoxDecoration(
+            color: Colors.white, // Card color
+            borderRadius: BorderRadius.circular(20), // Rounded corners
+          ),
+          child: Image.asset(
+            'assets/icon/icon.png', // Make sure your logo is in the assets folder
+            width: 20,
+            height: 20,
+          ),
         ),
       ),
     );

@@ -256,7 +256,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
 //   await intent.launch();
 // }
 
-  static const platform = MethodChannel('device_admin_channel');
+  static const platform = MethodChannel('com.example.safeapp/app_blocker');
 
   Future<void> requestDeviceAdmin() async {
     showPermissionDialog(
@@ -264,7 +264,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
       "Device Admin is required to block unauthorized apps and enhance security.",
       () async {
         try {
-          await platform.invokeMethod('requestDeviceAdmin');
+          await platform.invokeMethod('requestAdmin');
         } on PlatformException catch (e) {
           print("Failed to request Device Admin: '${e.message}'.");
         }

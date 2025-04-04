@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:safeapp/services/auth.dart';
 import '../models/user_model.dart';
 import '../services/get_me.dart';
@@ -31,6 +32,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
   }
+
+  final methodChannel = MethodChannel('device_admin_channel');
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +102,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: const Text("Open Trusted Website"),
                   ),
                 ),
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await methodChannel
+                          .invokeMethod('blockApplication', {
+                        'packageName': 'com.confirmtkt.lite',
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('App blocked successfully')),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: ${e.toString()}')),
+                      );
+                    }
+                  },
+                  child: const Text('Block App'),
+                )
               ],
             ),
           );

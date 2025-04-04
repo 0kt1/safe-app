@@ -75,7 +75,7 @@ class MyAccessibilityService : AccessibilityService() {
 
 
         if (!isTrustedApp(packageName)) {
-            val text = event.text?.joinToString(" ") ?: return
+            val text = event.source?.text?.toString() ?: return
             if (text.contains("OTP", ignoreCase = true)) {
                 Log.d("SafeApp", "Blocked OTP access for: $packageName")
                 showWarningDialog("OTP access blocked for an untrusted app.")
