@@ -127,7 +127,7 @@ import io.flutter.plugin.common.MethodChannel
 import com.example.safeapp.services.MyDeviceAdminReceiver
 import com.example.safeapp.services.AppBlockerPreferences
 import java.lang.reflect.Method
-import com.example.safeapp.services.AppBlockerService
+// import com.example.safeapp.services.AppBlockerService
 import android.util.Log
 
 class MainActivity : FlutterActivity() {
@@ -144,8 +144,8 @@ class MainActivity : FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "requestAdmin" -> requestAdmin(result)
-                "startBlocking" -> startBlockingService(result)
-                "stopBlocking" -> stopBlockingService(result)
+                // "startBlocking" -> startBlockingService(result)
+                // "stopBlocking" -> stopBlockingService(result)
                 "setBlockedApps" -> {
                     val apps = call.argument<List<String>>("apps")
                     setBlockedApps(apps ?: emptyList(), result)
@@ -258,17 +258,17 @@ class MainActivity : FlutterActivity() {
         result.success(null)
     }
 
-    private fun startBlockingService(result: MethodChannel.Result) {
-        val intent = Intent(this, AppBlockerService::class.java)
-        startService(intent)
-        result.success(null)
-    }
+    // private fun startBlockingService(result: MethodChannel.Result) {
+    //     val intent = Intent(this, AppBlockerService::class.java)
+    //     startService(intent)
+    //     result.success(null)
+    // }
 
-    private fun stopBlockingService(result: MethodChannel.Result) {
-        val intent = Intent(this, AppBlockerService::class.java)
-        stopService(intent)
-        result.success(null)
-    }
+    // private fun stopBlockingService(result: MethodChannel.Result) {
+    //     val intent = Intent(this, AppBlockerService::class.java)
+    //     stopService(intent)
+    //     result.success(null)
+    // }
 
     private fun setBlockedApps(apps: List<String>, result: MethodChannel.Result) {
         AppBlockerPreferences(this).setBlockedApps(apps.toSet())

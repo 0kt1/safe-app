@@ -29,6 +29,13 @@ dependencies:
   dio: ^5.8.0+1
   fluttertoast: ^8.2.12
   encrypt: ^5.0.3
+  flutter_staggered_animations: ^1.1.1
+  google_fonts: ^6.2.1
+  # flutter_neumorphic: ^3.2.0
+  flutter_neumorphic_plus: ^3.4.0
+  animate_do: ^4.2.0
+  glassmorphism: ^3.0.0
+  flutter_animate: ^4.5.2
 
 dev_dependencies:
   flutter_test:

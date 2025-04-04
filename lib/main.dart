@@ -26,8 +26,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Safe App',
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
-      initialRoute: '/splash',
+      // theme: ThemeData(primarySwatch: Colors.deepPurple),
+      // initialRoute: '/splash',
+      debugShowCheckedModeBanner: false,
+      // initialRoute: '/home_screen',
+      initialRoute: '/permissions',
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/welcome': (context) => const WelcomeScreen(),

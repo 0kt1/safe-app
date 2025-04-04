@@ -3,12 +3,14 @@ class User {
   final String deviceId;
   final String phoneNumber;
   final String role;
+  final String linkedbankAccount;
 
   User({
     required this.userName,
     required this.deviceId,
     required this.phoneNumber,
     required this.role,
+    required this.linkedbankAccount,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class User {
       deviceId: json['deviceid'] ?? 'Unavailable',
       phoneNumber: json['phoneNumber'] ?? 'N/A',
       role: json['role'] ?? 'N/A',
+      linkedbankAccount: json['linkedbankAccount'] ?? 'N/A',
     );
   }
 }
