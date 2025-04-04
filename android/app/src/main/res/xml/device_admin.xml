@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-policies>
+        <wipe-data />
+        <force-stop />
+        <limit-password />
+        <force-lock />
+        <disable-camera />          <!-- Disable camera access -->
+        <disable-apps />            <!-- Prevent certain apps from being used -->
+        <disable-screen-capture />  <!-- Block screenshots & screen recording -->
+    </uses-policies>
+</device-admin>

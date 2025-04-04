@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SafeApp</string>
+    <!-- <string name="accessibility_service_description">Allows SecureBank Hub to monitor foreground apps and protect transactions.</string> -->
+
+    <!-- Device Admin Strings -->
+    <string name="admin_label">SafeApp Admin</string>
+    <string name="admin_description">Required for application security features</string>
+    
+    <!-- Accessibility Service Strings -->
+    <string name="accessibility_service_label">SafeApp Protection</string>
+    <string name="accessibility_service_description">Allows SafeApp to monitor foreground apps and protect your security</string>
+    
+    <!-- Common Strings -->
+    <string name="permission_required">Permission required</string>
+    <string name="admin_permission_message">Device administrator privileges are needed for security features</string>
+</resources>

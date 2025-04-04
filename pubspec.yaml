@@ -9,11 +9,40 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.5
+  permission_handler: ^11.0.1
+  shared_preferences: ^2.3.3
+  flutter_secure_storage: ^9.2.4
+  device_apps: ^2.2.0
+  android_intent_plus: ^5.3.0
+  introduction_screen: ^3.1.17
+  local_auth: ^2.3.0
+  device_info_plus: ^11.3.0
+  http: ^1.3.0
+  usage_stats: ^1.3.1
+  fl_chart: ^0.70.2
+  connectivity_plus: ^6.1.3
+  wifi_info_flutter: ^2.0.2
+  geolocator: ^13.0.2
+  url_launcher: ^6.3.1
+  flutter_windowmanager: ^0.2.0
+  dio: ^5.8.0+1
+  fluttertoast: ^8.2.12
+  encrypt: ^5.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.14.3
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/icon/
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
