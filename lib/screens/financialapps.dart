@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:safeapp/components/side_drawer.dart';
 
 class FinancialAppsScreen extends StatefulWidget {
   const FinancialAppsScreen({super.key});
@@ -13,11 +14,11 @@ class FinancialAppsScreen extends StatefulWidget {
 class _FinancialAppsScreenState extends State<FinancialAppsScreen> {
   final List<String> financialPackageNames = [
     'com.google.android.apps.nbu.paisa.user', // Google Pay
-    'net.one97.paytm',                        // Paytm
-    'com.phonepe.app',                        // PhonePe
-    'com.mobikwik_new',                       // MobiKwik
-    'com.freecharge.android',                 // Freecharge
-    'com.amazon.mShop.android.shopping',      // Amazon (for Pay later etc.)
+    'net.one97.paytm', // Paytm
+    'com.phonepe.app', // PhonePe
+    'com.mobikwik_new', // MobiKwik
+    'com.freecharge.android', // Freecharge
+    'com.amazon.mShop.android.shopping', // Amazon (for Pay later etc.)
     'in.amazon.mShop.android.shopping',
     'com.fss.iob6'
   ];
@@ -51,9 +52,17 @@ class _FinancialAppsScreenState extends State<FinancialAppsScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text("Financial Apps",
-            style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold)),
+            style: GoogleFonts.inter(
+                color: Colors.white, fontWeight: FontWeight.bold)),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
+      drawer: const SideDrawer(),
       body: installedFinancialApps.isEmpty
           ? const Center(
               child: CircularProgressIndicator(color: Colors.white),

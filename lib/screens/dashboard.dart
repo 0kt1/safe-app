@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:safeapp/components/side_drawer.dart';
 import 'package:safeapp/services/foreground_monitor_service.dart';
 import 'package:safeapp/services/network_security_service.dart';
 import 'package:usage_stats/usage_stats.dart';
@@ -116,8 +117,8 @@ Widget build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     title: 'SafeApp Dashboard',
     themeMode: ThemeMode.light,
-    theme: NeumorphicThemeData(
-      baseColor: const Color(0xFF0F172A),
+    theme: const NeumorphicThemeData(
+      baseColor: Color(0xFF0F172A),
       lightSource: LightSource.topLeft,
       depth: 4,
       shadowLightColor: Colors.white24,
@@ -136,7 +137,14 @@ Widget build(BuildContext context) {
         ),
         centerTitle: true,
         color: const Color(0xFF0F172A),
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
+      drawer: const SideDrawer(),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

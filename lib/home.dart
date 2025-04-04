@@ -80,14 +80,15 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:safeapp/components/side_drawer.dart';
 import 'package:safeapp/screens/app_blocker_screen.dart';
 import 'package:safeapp/screens/dashboard.dart';
 import 'package:safeapp/screens/financialapps.dart';
+import 'package:safeapp/screens/detect_apps.dart';
 import 'package:safeapp/screens/profile.dart';
-import 'package:safeapp/screens/safe_app_screen.dart';
+import 'package:safeapp/screens/toggle_apps.dart';
 import 'package:safeapp/screens/test.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const FinancialAppsScreen(),
-    const ManageAppsScreen(),
+    DetectAppsScreen(),
     const DashboardPage(),
     const ProfileScreen(),
   ];
@@ -116,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
       body: SafeArea(child: _screens[_selectedIndex]),
+      drawer: const SideDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color.fromARGB(255, 21, 29, 42),
         type: BottomNavigationBarType.fixed,
@@ -140,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.lock),
-            label: 'Manage Apps',
+            label: 'Detect Apps',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),

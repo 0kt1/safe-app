@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:safeapp/components/side_drawer.dart';
 import 'package:safeapp/services/auth.dart';
 import '../models/user_model.dart';
 import '../services/get_me.dart';
@@ -49,7 +50,14 @@ Widget build(BuildContext context) {
           style: GoogleFonts.inter(
               color: Colors.white, fontWeight: FontWeight.bold)),
       centerTitle: true,
+      leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
     ),
+    drawer: const SideDrawer(),
     body: FutureBuilder<User>(
       future: _userFuture,
       builder: (context, snapshot) {
