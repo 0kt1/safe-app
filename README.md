@@ -25,6 +25,7 @@ SafeApp is a next-generation security solution designed to **create a secure con
 <img src="assets/screenshots/profile_screen.jpg" alt="Profile Screen" width="130"/>
 <img src="assets/screenshots/security_screen.jpg" alt="System Security Screen" width="130"/>
 <img src="assets/screenshots/toggle_apps_screen.jpg" alt="Toggle Apps Screen" width="130"/>
+<img src="assets/screenshots/side_drawer.jpg" alt="Side Drawer" width="130"/>
 </p>
 
 
