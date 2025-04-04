@@ -19,10 +19,12 @@ SafeApp is a next-generation security solution designed to **create a secure con
   <img src="assets/screenshots/login_screen.jpg" alt="Login Screen" width="130"/>
 <img src="assets/screenshots/register_device_screen.jpg" alt="Register Device Screen" width="130"/> 
 <img src="assets/screenshots/permissions_screen.jpg" alt="Permissions Screen" width="130"/> 
-<img src="assets/screenshots/secure_screen.jpg" alt="Secure Screen" width="130"/> 
-<img src="assets/screenshots/manage_apps_screen.jpg" alt="Manage Apps Screen" width="130"/> 
+<img src="assets/screenshots/secure_screen.jpg" alt="Secure Screen" width="130"/>
+<img src="assets/screenshots/detect_apps_screen.jpg" alt="Detect Apps Screen" width="130"/>
 <img src="assets/screenshots/dashboard_screen.jpg" alt="Mobile Dashboard Screen" width="130"/>
 <img src="assets/screenshots/profile_screen.jpg" alt="Profile Screen" width="130"/>
+<img src="assets/screenshots/security_screen.jpg" alt="System Security Screen" width="130"/>
+<img src="assets/screenshots/toggle_apps_screen.jpg" alt="Toggle Apps Screen" width="130"/>
 </p>
 
 

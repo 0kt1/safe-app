@@ -81,15 +81,15 @@ import '../models/financial_app.dart';
 List<String> trustedApps = [];
 List<Application> installedApps = [];
 
-class ManageAppsScreen extends StatefulWidget {
-  const ManageAppsScreen({super.key});
+class ToggleAppsScreen extends StatefulWidget {
+  const ToggleAppsScreen({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _ManageAppsScreenState createState() => _ManageAppsScreenState();
+  _ToggleAppsScreenState createState() => _ToggleAppsScreenState();
 }
 
-class _ManageAppsScreenState extends State<ManageAppsScreen> {
+class _ToggleAppsScreenState extends State<ToggleAppsScreen> {
   // List<FinancialApp> safeApps = [];
   bool isLoading = true;
 
@@ -175,17 +175,19 @@ class _ManageAppsScreenState extends State<ManageAppsScreen> {
   Widget build(BuildContext context) {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
-    title: 'Manage Your Apps',
-    themeMode: ThemeMode.light,
-    theme: NeumorphicThemeData(
-      baseColor: const Color(0xFF0F172A),
-      lightSource: LightSource.topLeft,
-      depth: 4,
-      shadowLightColor: Colors.white24,
-      shadowDarkColor: Colors.black87,
-    ),
+      title: 'Toggle Your Apps',
+      themeMode: ThemeMode.light,
+      theme: const NeumorphicThemeData(
+        baseColor: Color(0xFF0F172A),
+        lightSource: LightSource.topLeft,
+        depth: 4,
+        shadowLightColor: Colors.white24,
+        shadowDarkColor: Colors.black87,
+      ),
       home: Scaffold(
-        backgroundColor: const Color(0xFF0F172A), // dark professional background
+        
+        backgroundColor:
+            const Color(0xFF0F172A), // dark professional background
         // appBar: AppBar(
         //   title: const Text('Manage Your Apps'),
         //   backgroundColor: Colors.transparent,
@@ -199,7 +201,7 @@ class _ManageAppsScreenState extends State<ManageAppsScreen> {
         // ),
         appBar: NeumorphicAppBar(
           title: Text(
-            'Manage Your Apps',
+            'Toggle Your Apps',
             style: GoogleFonts.poppins(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -208,9 +210,11 @@ class _ManageAppsScreenState extends State<ManageAppsScreen> {
           ),
           centerTitle: true,
           color: const Color(0xFF0F172A),
+          automaticallyImplyLeading: true,
         ),
         body: isLoading
-            ? const Center(child: CircularProgressIndicator(color: Colors.white))
+            ? const Center(
+                child: CircularProgressIndicator(color: Colors.white))
             : Padding(
                 padding: const EdgeInsets.all(12),
                 child: AnimationLimiter(
@@ -219,7 +223,7 @@ class _ManageAppsScreenState extends State<ManageAppsScreen> {
                     itemBuilder: (context, index) {
                       final app = installedApps[index];
                       bool isTrusted = trustedApps.contains(app.packageName);
-      
+
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         duration: const Duration(milliseconds: 300),
@@ -250,7 +254,8 @@ class _ManageAppsScreenState extends State<ManageAppsScreen> {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : const Icon(Icons.apps, color: Colors.white),
+                                    : const Icon(Icons.apps,
+                                        color: Colors.white),
                                 title: Text(
                                   app.appName,
                                   style: GoogleFonts.inter(
