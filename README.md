@@ -8,6 +8,8 @@ SafeApp is a next-generation security solution designed to **create a secure con
 
 ---
 
+![Dashboard Screen](assets/screenshots/dashboard.jpg)
+
 ## 🚀 Features
 
 ✅ **Containerized App Environment**  
