@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:safeapp/home.dart';
 import 'dart:convert';
+
+import 'package:safeapp/screens/auth/blockapp.dart';
 
 bool isBlocked = false;
 String? newPin;
