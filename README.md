@@ -14,6 +14,35 @@ SafeApp is a next-generation security solution designed to **create a secure con
 ---
 
 ![Dashboard Screen](assets/screenshots/web_dashboard.jpg)
+# Web DashBoard
+
+#### Admin
+
+<p align="center">
+  <img src="assets/screenshots/dashboard/admin_1_device_monitoring.png" alt="admin device monitoring" width="130"/>
+  <img src="assets/screenshots/dashboard/admin_2_reports.png" alt="admin reports" width="130"/>
+  <img src="assets/screenshots/dashboard/admin_3_complaints.png" alt="admin complaints" width="130"/>
+  <img src="assets/screenshots/dashboard/admin_4_remote.png" alt="admin remote actions" width="130"/>
+  <img src="assets/screenshots/dashboard/admin_5_admin_roles.png" alt="admin roles" width="130"/>
+  <img src="assets/screenshots/dashboard/admin_6_policy.png" alt="admin policy" width="130"/>
+  <img src="assets/screenshots/dashboard/admin_7_threat.png" alt="admin threat feed" width="130"/>
+</p>
+
+#### User
+
+<p align="center">
+  <img src="assets/screenshots/dashboard/user_0_home.png" alt="user home" width="130"/>
+  <img src="assets/screenshots/dashboard/user_1_threat.png" alt="user threat notifications" width="130"/>
+  <img src="assets/screenshots/dashboard/user_2_device_enrollment.png" alt="user device enrollment" width="130"/>
+  <img src="assets/screenshots/dashboard/user_3_remote_wipe.png" alt="user remote wipe" width="130"/>
+  <img src="assets/screenshots/dashboard/user_4_device_health.png" alt="user device health" width="130"/>
+  <img src="assets/screenshots/dashboard/user_5_policy_updates.png" alt="user policy updates" width="130"/>
+  <img src="assets/screenshots/dashboard/user_6_complaint.png" alt="user submit complaint" width="130"/>
+</p>
+
+
+
+# Mobile app
 <p align="center">
   <img src="assets/screenshots/pin_screen.jpg" alt="Pin Screen" width="130"/>
   <img src="assets/screenshots/login_screen.jpg" alt="Login Screen" width="130"/>
