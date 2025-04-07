@@ -19,7 +19,7 @@ SafeApp is a next-generation security solution designed to **create a secure con
 #### Admin
 
 <p align="center">
-  <img src="assets/screenshots/dashboard/admin_1_device_monitoring.png" alt="admin device monitoring" width="270"/>
+  <img src="assets/screenshots/dashboard/admin_1_device_monitoring.png" alt="admin device monitoring" width="300"/>
   <img src="assets/screenshots/dashboard/admin_2_reports.png" alt="admin reports" width="250"/>
   <img src="assets/screenshots/dashboard/admin_3_complaints.png" alt="admin complaints" width="250"/>
   <img src="assets/screenshots/dashboard/admin_4_remote.png" alt="admin remote actions" width="130"/>
