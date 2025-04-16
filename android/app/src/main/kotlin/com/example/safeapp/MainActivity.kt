@@ -151,7 +151,10 @@ import android.app.AppOpsManager
 import android.telephony.TelephonyManager
 import io.flutter.plugin.common.MethodCall
 
-class MainActivity : FlutterActivity() {
+import io.flutter.embedding.android.FlutterFragmentActivity
+
+// class MainActivity : FlutterActivity() {
+class MainActivity : FlutterFragmentActivity() {
     private val CHANNEL = "com.example.safeapp/app_blocker"
     private lateinit var devicePolicyManager: DevicePolicyManager
     private lateinit var adminComponent: ComponentName
@@ -160,7 +163,7 @@ class MainActivity : FlutterActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getWindow().addFlags(LayoutParams.FLAG_SECURE); // Enable screen protection
+        // getWindow().addFlags(LayoutParams.FLAG_SECURE); // Enable screen protection
 
         // Enable screen protection initially
         // enableScreenProtection()

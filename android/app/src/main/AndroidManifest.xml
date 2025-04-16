@@ -42,11 +42,16 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
     <application
         android:label="safeapp"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true"
         android:allowBackup="false">
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
 
         <!-- Accessibility Service Declaration -->
         <service

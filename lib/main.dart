@@ -4,7 +4,9 @@ import 'package:safeapp/home.dart';
 import 'package:safeapp/screens/auth/login.dart';
 import 'package:safeapp/screens/auth/register.dart';
 import 'package:safeapp/screens/auth/safe_login.dart';
+import 'package:safeapp/screens/auth/test.dart';
 import 'package:safeapp/screens/permission.dart';
+import 'package:safeapp/screens/root.dart';
 import 'package:safeapp/screens/securecontainer.dart';
 import 'package:safeapp/screens/welcome.dart';
 import 'package:safeapp/screens/whitelist.dart';
@@ -29,8 +31,8 @@ class MainApp extends StatelessWidget {
       // theme: ThemeData(primarySwatch: Colors.deepPurple),
       // initialRoute: '/splash',
       debugShowCheckedModeBanner: false,
-      // initialRoute: '/home_screen',
-      initialRoute: '/permissions',
+      initialRoute: '/home_screen',
+      // initialRoute: '/testauthscreen',
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/welcome': (context) => const WelcomeScreen(),
@@ -41,6 +43,8 @@ class MainApp extends StatelessWidget {
         '/whitelist': (context) => const WhitelistScreen(),
         '/home_screen': (context) => const HomeScreen(),
         // '/secure_container': (context) => const SecureContainerScreen(),
+        '/testauthscreen': (context) => BiometricAuthPage(),
+        '/root_page': (context) => const RootChecker(),
       },
     );
   }

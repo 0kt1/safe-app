@@ -37,6 +37,8 @@ dependencies:
   glassmorphism: ^3.0.0
   flutter_animate: ^4.5.2
   animated_widgets: ^1.1.0
+  root_jailbreak_sniffer: ^1.1.1
+  telephony: ^0.2.0
 
 dev_dependencies:
   flutter_test:
