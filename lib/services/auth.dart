@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:local_auth/local_auth.dart';
 
 class AuthService {
   // final String baseUrl = "http://localhost:8000/auth"; // Change for production
@@ -42,5 +43,37 @@ class AuthService {
 
   static Future<void> logout() async {
     await _storage.delete(key: 'auth_token');
+  }
+
+
+  // ========================================================
+
+  final LocalAuthentication auth = LocalAuthentication();
+
+  Future<bool> checkBiometrics() async {
+    return await auth.canCheckBiometrics;
+  }
+
+  Future<bool> isDeviceSupported() async {
+    return await auth.isDeviceSupported();
+  }
+
+  Future<List<BiometricType>> getAvailableBiometrics() async {
+    return await auth.getAvailableBiometrics();
+  }
+
+  Future<bool> authenticate() async {
+    try {
+      return await auth.authenticate(
+        localizedReason: 'Please authenticate to continue',
+        options: const AuthenticationOptions(
+          biometricOnly: true,
+          stickyAuth: true,
+        ),
+      );
+    } catch (e) {
+      print('Authentication error: $e');
+      return false;
+    }
   }
 }

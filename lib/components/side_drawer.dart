@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:safeapp/screens/root.dart';
 import 'package:safeapp/screens/security.dart';
+import 'package:safeapp/screens/sms.dart';
 import 'package:safeapp/screens/toggle_apps.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -49,6 +51,21 @@ class SideDrawer extends StatelessWidget {
                   context: context,
                   page: SecurityScreen(), // Replace with your screen
                 ),
+
+                _buildDrawerItem(
+                  icon: Icons.security_rounded,
+                  title: "Root/Jailbreak Check",
+                  context: context,
+                  page: const RootChecker(), // Replace with your screen
+                ),
+
+
+                _buildDrawerItem(
+                  icon: Icons.security_rounded,
+                  title: "Secure Messages",
+                  context: context,
+                  page: const SmsInboxScreen(), // Replace with your screen
+                ),
                 // _buildDrawerItem(
                 //   icon: Icons.settings,
                 //   title: "Settings",
@@ -86,7 +103,7 @@ class SideDrawer extends StatelessWidget {
               fontSize: 15,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],
