@@ -250,6 +250,31 @@ class MainActivity : FlutterFragmentActivity() {
                 "isSystemApp" -> result.success(isSystemApp(call.arguments<String?>() ?: ""))
                 "isPreInstalled" -> result.success(isPreInstalledApp(call.arguments<String?>() ?: ""))
                 "getInstaller" -> result.success(getInstallerSource(call.arguments<String?>() ?: ""))
+
+                // "getSimSerial" -> {
+                //     val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                //     val simSerial = telephonyManager.simSerialNumber
+                //     val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                //     val editor = sharedPreferences.edit()
+                //     editor.putString(SIM_PREF_KEY, simSerial)
+                //     editor.apply()
+                //     result.success(simSerial)
+                // }
+                // "getSavedSimSerial" -> {
+                //     val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                //     val savedSimSerial = sharedPreferences.getString(SIM_PREF_KEY, null)
+                //     result.success(savedSimSerial)
+                // }
+
+                "wipeData" -> {
+                    try {
+                    val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                    activityManager.clearApplicationUserData() // This clears app cache, files, dbs, prefs
+                    result.success("Wipe successful")
+                    } catch (e: Exception) {
+                        result.error("WIPE_ERROR", "Failed to wipe app data: ${e.localizedMessage}", null)
+                    }
+                }
                 else -> result.notImplemented()
             }
         }
