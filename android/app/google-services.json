@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "480268836668",
+    "project_id": "safeapp-51084",
+    "storage_bucket": "safeapp-51084.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480268836668:android:7a951a47e0617529ab0839",
+        "android_client_info": {
+          "package_name": "com.example.safeapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjxtzIg3Oh19r8WZaRhPxj1RVu259iQXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

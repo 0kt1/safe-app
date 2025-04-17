@@ -39,6 +39,10 @@ dependencies:
   animated_widgets: ^1.1.0
   root_jailbreak_sniffer: ^1.1.1
   telephony: ^0.2.0
+  firebase_core: ^3.13.0
+  # flutter_local_notifications: ^19.1.0
+  firebase_messaging: ^15.2.5
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
